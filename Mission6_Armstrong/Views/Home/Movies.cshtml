@@ -5,13 +5,27 @@
 
 <div>
     <form method="post">
+
+        <input type="hidden" asp-for="MovieId" />
+
+        <label asp-for="Category">Category</label>
+        <br />
+        <select asp-for="CategoryId">
+            <option value="Select a Categorical genre"></option>
+            @foreach (Category c in ViewBag.category)
+            {
+                <option value="@c.CategoryId">@c.CategoryName</option>
+                //uses viewbag here to pass information from controller to views
+            }
+        </select>
+        <br />
         <label asp-for="Title">Title</label>
         <br />
         <input asp-for="Title"/>
         <br />
         <label asp-for="Year">Year</label>
         <br />
-        <input asp-for="Year"/>
+        <input asp-for="Year" min="1888"/>
         <br />
         <label asp-for="Director">Director</label>
         <br />
@@ -27,24 +41,6 @@
             <option value="R">R</option>
         </select>
         <br />
-        <label asp-for="Category">Category</label>
-        <br />
-        <select asp-for="CategoryId">
-            <option value="Select a Categorical genre"></option>
-            @foreach (Category c in ViewBag.category)
-            {
-                <option value="@c.CategoryId">@c.CategoryName</option> //uses viewbag here to pass information from controller to views
-            }
-@*          <option value="Television">Television</option>
-            <option value="Horror/Suspense">Horror/Suspense</option>
-            <option value="Comedy">Comedy</option>
-            <option value="Family">Family</option>
-            <option value="Action/Adventure">Action/Adventure</option>
-            <option value="VHS">VHS</option>
-            <option value="Drama">Drama</option>
-            <option value="Miscellaneous">Miscellaneous</option> *@
-        </select>
-        <br />
         <label asp-for="Edited">Edited?</label>
         <br />
         <select asp-for="Edited">
@@ -58,13 +54,16 @@
         <br>
         <label asp-for="CopiedToPlex">Copied To Plex:</label>
         <br>
-        <input asp-for="CopiedToPlex" />
+        <select asp-for="CopiedToPlex">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+        </select>
         <br>
         <label asp-for="Notes">Notes</label>
         <br />
         <input asp-for="Notes" />
         <br /><br />
-        <button type="submit" asp-controller="Home" asp-action="Confirmation">Submit</button>
+        <button type="submit">Submit</button>
 
     </form>
 </div>

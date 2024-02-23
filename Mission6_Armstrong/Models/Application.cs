@@ -26,7 +26,8 @@ namespace Mission6_Armstrong.Models
         public string? LentTo { get; set; }
 
         [Required]
-        public int CopiedToPlex { get; set; }
+        public bool CopiedToPlex { get; set; }
+
         [MaxLength(25)]
         public string? Notes { get; set; }
     }

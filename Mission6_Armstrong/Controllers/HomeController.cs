@@ -37,9 +37,51 @@ namespace Mission6_Armstrong.Controllers
         }
 
         [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var recordToEdit = _context.Movies
+                .Single(x => x.MovieId == id);
+
+             ViewBag.category = _context.Categories //ViewBag stores small amounts of data to transfer to Views
+                .OrderBy(x => x.CategoryName)
+                .ToList();
+
+            //_context.SaveChanges();
+
+            return View("Movies", recordToEdit);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Application UpdatedInfo) //
+        {
+            _context.Update(UpdatedInfo);
+            _context.SaveChanges();
+
+            return RedirectToAction("Collection");
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var recordToDelete = _context.Movies
+                .Single(x => x.MovieId == id);
+
+            return View(recordToDelete);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(Application app)
+        {
+            _context.Movies.Remove(app);
+            _context.SaveChanges();
+
+            return RedirectToAction("Collection");
+        }
+
+        [HttpGet]
         public IActionResult Movies()
         {
-            ViewBag.category = _context.Categories //ViewBag
+            ViewBag.category = _context.Categories //ViewBag stores small amounts of data to transfer to Views
                 .OrderBy(x => x.CategoryName)
                 .ToList();
             return View();
