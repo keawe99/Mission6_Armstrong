@@ -8,6 +8,15 @@ namespace Mission6_Armstrong.Models
         {
         }
 
-        public DbSet<Application> Applications { get; set; }
+        public DbSet<Application> Movies { get; set; }
+        public DbSet<Category> Categories { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder) //Seed Data
+        {
+            modelBuilder.Entity<Category>().HasData(
+                new Category { CategoryId = 1, CategoryName = "Action" },
+                new Category { CategoryId = 2, CategoryName = "Drama" }
+            );
+        }
     }
 }

@@ -22,13 +22,26 @@ namespace Mission6_Armstrong.Controllers
             return View();
         }
 
-        public IActionResult Movies()
+        public IActionResult Confirmation()
         {
             return View();
         }
 
-        public IActionResult Confirmation()
+        public IActionResult Collection()
         {
+            //Linq
+            var applications = _context.Movies
+                .OrderBy(x => x.Title).ToList();
+
+            return View(applications);
+        }
+
+        [HttpGet]
+        public IActionResult Movies()
+        {
+            ViewBag.category = _context.Categories //ViewBag
+                .OrderBy(x => x.CategoryName)
+                .ToList();
             return View();
         }
 
@@ -36,7 +49,7 @@ namespace Mission6_Armstrong.Controllers
         [HttpPost]
         public IActionResult Movies(Application response)
         {
-            _context.Applications.Add(response); //Add record to database
+            _context.Movies.Add(response); //Add record to database
             _context.SaveChanges(); //commits changes to database
 
             return View("Confirmation", response);
